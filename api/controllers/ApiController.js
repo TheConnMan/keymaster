@@ -24,6 +24,9 @@ module.exports = {
     } else if (command === 'generate') {
       var roleName = text.shift();
       var roleArn = RoleService.getRoleArn(roleName);
+      if (!roleArn) {
+        throw 'The role "' + roleName + '" does not exist';
+      }
       var duration = parseInt(text.shift()) || sails.config.globals.keymaster.defaultLife;
       return RoleService.assumeRole(roleArn, req.body.user_id, duration).then(function(credentials) {
         return SlackService.sendAuditMessage(credentials, req.body.user_name, roleName);
