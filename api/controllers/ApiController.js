@@ -13,6 +13,11 @@ var help = [
 
 module.exports = {
   slash: function(req, res) {
+    if (!sails.config.globals.keymaster.slashToken || sails.config.globals.keymaster.slashToken !== req.body.token) {
+      return res.json({
+        text: 'Unauthorized'
+      });
+    }
     var text = req.body.text.split(' ');
     var command = text.shift();
     if (command === 'list') {

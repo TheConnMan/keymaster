@@ -12,6 +12,7 @@ module.exports.globals = {
 
   keymaster: {
     defaultLife: process.env.DEFAULT_KEY_LIFE_SECONDS || 3600,
+    slashToken: process.env.SLASH_TOKEN,
     auditWebhook: process.env.AUDIT_WEBHOOK,
     auditChannel: process.env.AUDIT_CHANNEL,
     auditBotName: process.env.AUDIT_BOT_NAME || 'Keymaster'
