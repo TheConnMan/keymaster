@@ -1,20 +1,31 @@
 var Promise = require('promise');
 var AWS = require('aws-sdk');
+var roles = require('../../roles/roles.json');
 
 var sts = new AWS.STS();
-var iam = new AWS.IAM();
 
 module.exports = {
-  listRoles: function() {
+  listRoleNames: function() {
+    return Object.keys(roles).sort();
+  },
+
+  getRoleArn: function(roleName) {
+    return roles[roleName];
+  },
+
+  assumeRole: function(role, sessionName, duration) {
+    var params = {
+      RoleArn: role,
+      RoleSessionName: sessionName,
+      DurationSeconds: duration
+    };
     return new Promise(function(resolve, reject) {
-      iam.listRoles({}, function(err, data) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(data.Roles.map(function(role) {
-              return role.RoleName;
-            }));
-          }
+      sts.assumeRole(params, function(err, data) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data.Credentials);
+        }
       });
     });
   }
