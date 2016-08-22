@@ -20,6 +20,7 @@
     "grunt-sails-linker": "~0.10.1",
     "grunt-sync": "0.5.2",
     "include-all": "~0.1.6",
+    "node-slack": "0.0.7",
     "rc": "1.0.1",
     "sails": "~0.12.4",
     "sails-disk": "~0.10.9"

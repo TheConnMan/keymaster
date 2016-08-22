@@ -26,6 +26,8 @@ module.exports = {
       var roleArn = RoleService.getRoleArn(roleName);
       var duration = parseInt(text.shift()) || sails.config.globals.keymaster.defaultLife;
       return RoleService.assumeRole(roleArn, req.body.user_id, duration).then(function(credentials) {
+        return SlackService.sendAuditMessage(credentials, req.body.user_name, roleName);
+      }).then(function(credentials) {
         var response = [
           'Your temporary credentials are below, they will expire on ' + credentials.Expiration + ':',
           '    Access Key: ' + credentials.AccessKeyId,
@@ -33,6 +35,10 @@ module.exports = {
         ].join('\n');
         return res.json({
           text: response
+        });
+      }).catch(function(err) {
+        return res.json({
+          text: 'Error: ' + err
         });
       });
     } else {
