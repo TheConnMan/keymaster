@@ -3,6 +3,11 @@ Keymaster is a Slack bot who hands out temporary AWS credentials, all through a 
 
 ![Keymaster](docs/images/Keymaster.gif)
 
+## Usage
+**Keymaster** has two commands:
+- `list` - List the available roles to generate credentials for
+- `generate [role-name] [credential life in seconds]` - Generates temporary credentials for the given role with an optional lifetime (AWS limits the maximum life to **1 hour**)
+
 ## Setup
 ### AWS Credentials
 You will need AWS access keys to run **Keymaster** with which have **STS** permissions. The minimum required permissions are below:
@@ -61,7 +66,7 @@ You can change the port as needed to satisfy the HTTPS requirement of Slack.
 - **AWS_ACCESS_KEY_ID** - AWS access key to assume roles
 - **AWS_SECRET_ACCESS_KEY** - AWS secret key to assume roles
 - **SLASH_TOKEN** - Slash command token (found during Slash command setup)
-- **DEFAULT_KEY_LIFE_SECONDS** (default: 3600) - Default lifetime of temporary keys in seconds
+- **DEFAULT_KEY_LIFE_SECONDS** (default: 3600) - Default lifetime of temporary keys in seconds (AWS limits this to a max of 1 hour)
 - **AUDIT_WEBHOOK** (optional) - Audit channel Slack Webhook
 - **AUDIT_CHANNEL** (optional) - Audit channel (defaults to the default channel from the audit webhook)
 - **AUDIT_BOT_NAME** (optional, default: Keymaster) - Audit channel bot name
