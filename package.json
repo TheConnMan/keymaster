@@ -1,8 +1,8 @@
 {
   "name": "keymaster",
-  "private": true,
+  "private": false,
   "version": "0.1.0",
-  "description": "a Sails application",
+  "description": "Keymaster - Generate temporary AWS credentials, all through a convenient Slack Slash Command",
   "keywords": [],
   "dependencies": {
     "aws-sdk": "^2.5.2",
