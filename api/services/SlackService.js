@@ -12,21 +12,19 @@ module.exports = {
           '    Expires: *' + credentials.Expiration + '*'
         ].join('\n');
         var params = {
-          text: message
+          text: message,
+          username: sails.config.globals.keymaster.auditBotName || 'Keymaster'
         };
         if (sails.config.globals.keymaster.auditChannel) {
           params.channel = sails.config.globals.keymaster.auditChannel;
         }
-        if (sails.config.globals.keymaster.auditBotName) {
-          params.username = sails.config.globals.keymaster.auditBotName;
-        }
-          slack.send(params, function(err, data) {
-            if (err) {
-              reject(err);
-            } else {
-              resolve(credentials);
-            }
-          });
+        slack.send(params, function(err, data) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(credentials);
+          }
+        });
       } else {
         resolve(credentials);
       }
