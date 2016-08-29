@@ -50,7 +50,7 @@ curl -sSL https://get.docker.com/ | sh
 
 The public **Keymaster** image is [theconnman/keymaster](https://hub.docker.com/r/theconnman/keymaster/). The `roles.json` file created above needs to be injected as a volume for the Docker container as well. An example command to pull and run it is below which assumes `roles.json` is in a folder named `roles`:
 ```bash
-docker run -d -p 80:1337 -e SLASH_TOKEN=[my-slash-token] -e AUDIT_WEBHOOK=[my-incoming-webhook] -e AWS_ACCESS_KEY_ID=[access-key] -e AWS_SECRET_ACCESS_KEY=[secret-key] -v roles:/usr/src/app/roles --name keymaster theconnman/keymaster:latest
+docker run -d -p 80:1337 -e SLASH_TOKEN=[my-slash-token] -e AUDIT_WEBHOOK=[my-incoming-webhook] -e AWS_ACCESS_KEY_ID=[access-key] -e AWS_SECRET_ACCESS_KEY=[secret-key] -v /path/to/roles.json:/usr/src/app/roles/roles.json --name keymaster theconnman/keymaster:latest
 ```
 
 You can change the port as needed to satisfy the HTTPS requirement of Slack.
